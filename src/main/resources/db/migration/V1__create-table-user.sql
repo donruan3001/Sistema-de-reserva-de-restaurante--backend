@@ -1,0 +1,24 @@
+CREATE TABLE users(
+id BIGSERIAL PRIMARY KEY,
+nome VARCHAR(100) NOT NULL,
+email VARCHAR(200) NOT NULL UNIQUE,
+senha VARCHAR (50) NOT NULL,
+role VARCHAR (10) NOT NULL DEFAULT 'client',
+criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE mesas (
+    id BIGSERIAL PRIMARY KEY,
+    nome VARCHAR(50) NOT NULL,
+    capacidade INT NOT NULL CHECK (capacidade > 0),
+    status VARCHAR(20) NOT NULL DEFAULT 'disponivel'
+  );
+
+CREATE TABLE reservas (
+    id BIGSERIAL PRIMARY KEY,
+    usuario_id BIGSERIAL NOT NULL,
+    mesa_id BIGSERIAL NOT NULL,
+    data_reserva TIMESTAMP NOT NULL CHECK (data_reserva > CURRENT_TIMESTAMP),
+    status VARCHAR(20) NOT NULL DEFAULT 'ativo', 
+    FOREIGN KEY (usuario_id) REFERENCES users (id) ON DELETE CASCADE,
+    FOREIGN KEY (mesa_id) REFERENCES mesas (id) ON DELETE CASCADE
+);
