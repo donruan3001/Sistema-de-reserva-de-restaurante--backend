@@ -10,6 +10,8 @@ public record RegisterUserDto(
     @NotBlank
     String email,
     @NotBlank
-    String senha) {
+    String senha,
+    EnumRole role
+    ) {
 
 }
