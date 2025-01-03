@@ -2,6 +2,7 @@ package ALURAPROJECT.demo.infra.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -20,7 +21,8 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf().disable()
         .authorizeHttpRequests()
-        .requestMatchers("/login").permitAll() // Permitir acesso ao endpoint de login
+        .requestMatchers(HttpMethod.POST,"users/login").permitAll()// Permitir acesso ao endpoint de login
+        .requestMatchers(HttpMethod.POST,"users/register").permitAll()
         .anyRequest().authenticated()     // Exigir autenticação para outros endpoints
         .and()
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -37,7 +39,6 @@ public class SecurityConfiguration {
     @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
-
     }
 
 }
