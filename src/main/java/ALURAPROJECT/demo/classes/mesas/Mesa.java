@@ -30,4 +30,10 @@ public class Mesa {
     @Enumerated(EnumType.STRING)
     private EnumStatusMesa status;
 
+
+    public Mesa(String nome, int capacidade, EnumStatusMesa status) {
+        this.nome = nome;
+        this.capacidade=capacidade;
+        this.status = status;
+}
 }
