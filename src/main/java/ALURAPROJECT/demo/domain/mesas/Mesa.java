@@ -1,4 +1,4 @@
-package ALURAPROJECT.demo.classes.mesas;
+package ALURAPROJECT.demo.domain.mesas;
 
 
 

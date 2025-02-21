@@ -1,7 +1,10 @@
-package ALURAPROJECT.demo.classes.reservas;
+package ALURAPROJECT.demo.domain.reservas;
+
+
 import java.time.LocalDateTime;
-import ALURAPROJECT.demo.classes.User.User;
-import ALURAPROJECT.demo.classes.mesas.Mesa;
+
+import ALURAPROJECT.demo.domain.User.User;
+import ALURAPROJECT.demo.domain.mesas.Mesa;
 import jakarta.persistence.Id;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -15,12 +18,12 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 @Table(name="reservas")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-
 @Entity
 public class Reserva{
    
@@ -39,5 +42,5 @@ public class Reserva{
     private LocalDateTime data_reserva;
 
     @Enumerated(EnumType.STRING)
-    private EnumReservas status;
+    private EnumBooking status;
 }

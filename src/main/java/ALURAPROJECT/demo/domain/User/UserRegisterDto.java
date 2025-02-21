@@ -1,4 +1,4 @@
-package ALURAPROJECT.demo.classes.User;
+package ALURAPROJECT.demo.domain.User;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -10,7 +10,9 @@ public record UserRegisterDto(
     @NotBlank
     String email,
     @NotBlank
-    String senha
+    String senha,
+    EnumRole role
+
     ) {
 
 }

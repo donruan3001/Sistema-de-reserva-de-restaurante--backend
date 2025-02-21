@@ -1,4 +1,4 @@
-package ALURAPROJECT.demo.classes.User;
+package ALURAPROJECT.demo.domain.User;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
@@ -45,12 +45,14 @@ public class User implements UserDetails {
     private EnumRole role;
     private LocalDateTime criadoEm = LocalDateTime.now();
     
-    public User(String nome,String email,String senha){
-        this.nome=nome;
-        this.email=email;
-        this.senha=senha;
-        this.role=EnumRole.CLIENT;
-}
+    public User(String nome, String email, String senha , EnumRole role) {
+        this.nome = nome;
+        this.email = email;
+        this.senha = senha;
+        this.role = role; // Papel padrão
+        this.criadoEm=LocalDateTime.now();
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         if(this.role==EnumRole.ADMIN) return List.of(new  SimpleGrantedAuthority("ROLE_ADMIN"), 

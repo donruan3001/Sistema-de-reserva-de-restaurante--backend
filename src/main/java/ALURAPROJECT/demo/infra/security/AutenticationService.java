@@ -6,7 +6,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import ALURAPROJECT.demo.repository.RepositoryUser;
+import ALURAPROJECT.demo.domain.User.RepositoryUser;
 
 @Service
 public class AutenticationService implements UserDetailsService{

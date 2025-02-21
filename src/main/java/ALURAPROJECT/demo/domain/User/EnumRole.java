@@ -1,4 +1,4 @@
-package ALURAPROJECT.demo.classes.User;
+package ALURAPROJECT.demo.domain.User;
 
 public enum EnumRole {
     CLIENT("user"),
