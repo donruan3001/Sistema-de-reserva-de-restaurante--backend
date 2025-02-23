@@ -1,5 +1,6 @@
 package ALURAPROJECT.demo.infra.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -16,6 +17,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SecurityConfiguration {
 
+    @Autowired
+private FilterSecurity securityFilter;
+
    @Bean
 public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     return http.csrf(csrf -> csrf.disable())
@@ -24,7 +28,7 @@ public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Excepti
                 req.requestMatchers("/register", "/login").permitAll();
                 req.anyRequest().authenticated();
             })
-            .addFilterBefore(new FilterSecurity(), UsernamePasswordAuthenticationFilter.class) // Adicione o FilterSecurity
+            .addFilterBefore(securityFilter,UsernamePasswordAuthenticationFilter.class) 
             .build();
 }
     @Bean

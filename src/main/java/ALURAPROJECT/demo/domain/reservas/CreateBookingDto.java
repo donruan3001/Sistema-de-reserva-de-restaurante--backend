@@ -9,7 +9,7 @@ public record CreateBookingDto(
     @NotNull
     Long userId,
     @NotNull
-    Long mesaId,
+    Long chairId,
     @Future
     @NotNull
     LocalDateTime data_reserva,

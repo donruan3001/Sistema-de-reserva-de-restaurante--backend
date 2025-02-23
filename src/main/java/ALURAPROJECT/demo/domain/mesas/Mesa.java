@@ -36,4 +36,20 @@ public class Mesa {
         this.capacidade=capacidade;
         this.status = status;
 }
+
+
+    public void update(String nome, int capacidade, EnumStatusMesa status) {
+        this.nome = nome;
+        this.capacidade = capacidade;
+        this.status = status;
+    }
+    public int getCapacidade() {
+        return capacidade;
+    }
+    public String getNome(){
+        return nome;
+    }public EnumStatusMesa getStatus(){
+        return status;
+    }public Long getId(){return id;}
+
 }
