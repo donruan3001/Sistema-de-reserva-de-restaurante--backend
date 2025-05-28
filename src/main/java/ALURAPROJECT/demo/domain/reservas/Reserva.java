@@ -14,6 +14,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,14 +22,14 @@ import lombok.Setter;
 
 @Table(name="reservas")
 @Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Setter
 @Entity
 public class Reserva{
    
    @Id
-       @GeneratedValue(strategy = GenerationType.IDENTITY)
+ @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
@@ -43,4 +44,13 @@ public class Reserva{
 
     @Enumerated(EnumType.STRING)
     private EnumBooking status;
+
+    public Reserva(User user,Mesa mesa, LocalDateTime data_reserva,EnumBooking status){
+        this.user=user;
+        this.mesa=mesa;
+        this.data_reserva=data_reserva;
+        this.status=status;
+    }
+
+
 }
