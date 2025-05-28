@@ -25,7 +25,7 @@ public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Excepti
     return http.csrf(csrf -> csrf.disable())
             .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(req -> {
-                req.requestMatchers("/register", "/login").permitAll();
+                req.requestMatchers("/user/register", "/user/login").permitAll();
                 req.anyRequest().authenticated();
             })
             .addFilterBefore(securityFilter,UsernamePasswordAuthenticationFilter.class) 

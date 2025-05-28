@@ -19,7 +19,7 @@ import ALURAPROJECT.demo.infra.security.TokenService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("users")
+@RequestMapping("/user")
 public class AuthenticationController {
 
 @Autowired
@@ -37,7 +37,6 @@ private TokenService tokenService;
 @PostMapping("/login")
 @Transactional
     public ResponseEntity loginIn(@RequestBody @Valid UserLoginDto dados ){
-
         try{
 
             var tokenAuthentication= new UsernamePasswordAuthenticationToken(dados.email(), dados.senha());
