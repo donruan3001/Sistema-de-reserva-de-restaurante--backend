@@ -73,19 +73,143 @@ O projeto já está configurado com as seguintes variáveis no docker-compose:
 ## Endpoints da API
 
 ### Autenticação
-- POST `/user/login`: Login de usuário
 - POST `/user/register`: Registro de novo usuário
+  ```json
+  {
+    "nome": "João Silva",
+    "email": "joao@email.com",
+    "senha": "senha123",
+    "role": "CLIENT"
+  }
+  ```
+
+- POST `/user/login`: Login de usuário
+  ```json
+  {
+    "email": "joao@email.com",
+    "senha": "senha123"
+  }
+  ```
+  Resposta:
+  ```json
+  {
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+  }
+  ```
 
 ### Mesas
-- GET `/mesas`: Lista todas as mesas
 - POST `/mesas`: Cria nova mesa (requer ADMIN)
+  ```json
+  {
+    "nome": "Mesa 01",
+    "capacidade": 4,
+    "status": "DISPONIVEL"
+  }
+  ```
+
 - PATCH `/mesas/{id}`: Atualiza mesa
-- DELETE `/mesas/{id}`: Remove mesa
+  ```json
+  {
+    "nome": "Mesa VIP 01",
+    "capacidade": 6,
+    "status": "DISPONIVEL"
+  }
+  ```
+
+- GET `/mesas`: Lista todas as mesas
+  Resposta:
+  ```json
+  {
+    "content": [
+      {
+        "id": 1,
+        "nome": "Mesa VIP 01",
+        "capacidade": 6,
+        "status": "DISPONIVEL"
+      },
+      {
+        "id": 2,
+        "nome": "Mesa 02",
+        "capacidade": 4,
+        "status": "INDISPONIVEL"
+      }
+    ],
+    "pageable": {
+      "pageNumber": 0,
+      "pageSize": 10,
+      "sort": {
+        "sorted": true,
+        "unsorted": false,
+        "empty": false
+      }
+    },
+    "totalElements": 2,
+    "totalPages": 1
+  }
+  ```
 
 ### Reservas
 - POST `/booking`: Cria nova reserva
+  ```json
+  {
+    "userId": 1,
+    "chairId": 1,
+    "data_reserva": "2024-03-25T19:00:00",
+    "status": "ATIVO"
+  }
+  ```
+
 - GET `/booking`: Lista todas as reservas
+  Resposta:
+  ```json
+  {
+    "content": [
+      {
+        "id": 1,
+        "nomeUsuario": "João Silva",
+        "nomeMesa": "Mesa VIP 01",
+        "dataReserva": "2024-03-25T19:00:00",
+        "status": "ATIVO"
+      }
+    ],
+    "pageable": {
+      "pageNumber": 0,
+      "pageSize": 10,
+      "sort": {
+        "sorted": true,
+        "unsorted": false,
+        "empty": false
+      }
+    },
+    "totalElements": 1,
+    "totalPages": 1
+  }
+  ```
+
 - PATCH `/booking`: Atualiza status da reserva
+  ```json
+  {
+    "id": 1,
+    "status": "CANCELADO"
+  }
+  ```
+
+### Headers para Autenticação
+
+Para endpoints protegidos, inclua o token JWT no header:
+```
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+```
+
+### Códigos de Resposta
+
+- `200 OK`: Requisição bem-sucedida
+- `201 Created`: Recurso criado com sucesso
+- `400 Bad Request`: Erro nos dados enviados
+- `401 Unauthorized`: Token ausente ou inválido
+- `403 Forbidden`: Sem permissão para acessar o recurso
+- `404 Not Found`: Recurso não encontrado
+- `500 Internal Server Error`: Erro no servidor
 
 ## Status das Mesas
 
