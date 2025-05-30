@@ -50,7 +50,7 @@ public ResponseEntity PostBooking(@RequestBody @Valid CreateBookingDto dados) {
     Mesa mesa = repositoryChair.findById(dados.chairId())
         .orElseThrow(() -> new RuntimeException("Mesa não encontrada"));
 
-    Reserva reserva = new Reserva(dados.chairId(),mesa,dados.data_reserva(),dados.status());
+    Reserva reserva = new Reserva(dados.chairId(),dados.userId(),dados.data_reserva(),dados.status());
     repositoryBooking.save(reserva);
    return ResponseEntity.status(HttpStatus.CREATED).body(reserva);
 

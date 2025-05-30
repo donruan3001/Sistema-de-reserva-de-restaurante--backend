@@ -33,7 +33,7 @@ public class Reserva{
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "usuario_id", nullable = false)
     private User user;
 
     @ManyToOne
@@ -50,6 +50,16 @@ public class Reserva{
         this.mesa=mesa;
         this.data_reserva=data_reserva;
         this.status=status;
+    }
+  public Reserva(Long userId, Long mesaId, LocalDateTime horario, EnumBooking status) {
+        this.user = new User();
+        this.user.setId(userId);
+
+        this.mesa = new Mesa();
+        this.mesa.setId(mesaId);
+
+        this.data_reserva = horario;
+        this.status = status;
     }
 
 
