@@ -3,6 +3,9 @@ package ALURAPROJECT.demo.domain.mesas;
 
 
 import jakarta.persistence.Id;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -20,6 +23,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Mesa {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

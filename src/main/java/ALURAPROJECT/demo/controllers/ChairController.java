@@ -26,6 +26,7 @@ import ALURAPROJECT.demo.domain.mesas.UpdateChairDto;
 import jakarta.validation.Valid;
 
 @RestController
+
 @RequestMapping("/mesas")
 public class ChairController {
 @Autowired

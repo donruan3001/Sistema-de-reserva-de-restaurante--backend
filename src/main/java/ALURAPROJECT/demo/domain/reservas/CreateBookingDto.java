@@ -13,7 +13,7 @@ public record CreateBookingDto(
     @Future
     @NotNull
     LocalDateTime data_reserva,
-    @NotNull
+    
     EnumBooking status) {
 
 }

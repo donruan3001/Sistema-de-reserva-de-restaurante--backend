@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: sistema-reserva-db
+    environment:
+      POSTGRES_DB: sistema-de-reserva
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Cardoch10!
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  app:
+    build: .
+    container_name: sistema-reserva-app
+    depends_on:
+      - postgres
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/sistema-de-reserva
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: Cardoch10!
+      JWT_SECRET: 12345678
+    ports:
+      - "8080:8080"
+
+volumes:
+  postgres_data: 

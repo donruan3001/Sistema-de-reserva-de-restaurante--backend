@@ -51,16 +51,7 @@ public class Reserva{
         this.data_reserva=data_reserva;
         this.status=status;
     }
-  public Reserva(Long userId, Long mesaId, LocalDateTime horario, EnumBooking status) {
-        this.user = new User();
-        this.user.setId(userId);
 
-        this.mesa = new Mesa();
-        this.mesa.setId(mesaId);
-
-        this.data_reserva = horario;
-        this.status = status;
-    }
 
 
 }
