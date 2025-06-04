@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import ALURAPROJECT.demo.domain.User.RepositoryUser;
 import ALURAPROJECT.demo.domain.User.User;
@@ -19,6 +20,7 @@ import ALURAPROJECT.demo.domain.mesas.Mesa;
 import ALURAPROJECT.demo.domain.mesas.EnumStatusMesa;
 import ALURAPROJECT.demo.domain.mesas.RepositoryChair;
 import ALURAPROJECT.demo.domain.reservas.CreateBookingDto;
+import ALURAPROJECT.demo.domain.reservas.EnumBooking;
 import ALURAPROJECT.demo.domain.reservas.RepositoryBooking;
 import ALURAPROJECT.demo.domain.reservas.Reserva;
 import jakarta.transaction.Transactional;
@@ -73,11 +75,31 @@ public ResponseEntity<Page<ListagemReservaDto>> listarReservas(Pageable paginaca
     return ResponseEntity.ok(page);
 }
 
-@PatchMapping
+@PatchMapping("/{id}")
 @Transactional
-public ResponseEntity atualizarStatus(@RequestBody @Valid UpdateReservaDto dados) {
-    var reserva = repositoryBooking.getReferenceById(dados.id());
-    reserva.setStatus(dados.status());
-    return ResponseEntity.ok().build();
-}
-}
+public ResponseEntity CancelarReserva(@PathVariable Long id) {
+    try{
+        var reserva = repositoryBooking.findById(id)
+        .orElseThrow(() -> new RuntimeException("Reserva não encontrada"));
+
+        if(reserva.getStatus()==EnumBooking.ATIVO){
+            reserva.setStatus(EnumBooking.CANCELADO);
+        
+            var mesa = reserva.getMesa();
+            mesa.setStatus(EnumStatusMesa.DISPONIVEL);
+        
+            repositoryChair.save(mesa);
+            repositoryBooking.save(reserva);
+            return ResponseEntity.ok().build();}
+            else{
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Reserva não está ativa e não pode ser cancelada");
+            }
+
+        }catch(Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Reserva não encontrada");
+        }
+    }
+
+ }
+
+  
