@@ -48,6 +48,7 @@ public ResponseEntity createChair (@Valid @RequestBody InserirChairDto dados){
 
 }
 @PatchMapping("/{id}")
+@PreAuthorize("hasRole('ADMIN')")
 @Transactional
 public ResponseEntity updateChair (@PathVariable Long id, @Valid @RequestBody UpdateChairDto dados){
  
@@ -59,6 +60,7 @@ public ResponseEntity updateChair (@PathVariable Long id, @Valid @RequestBody Up
 }
 
 @DeleteMapping("/{id}")
+@PreAuthorize("hasRole('ADMIN')")
 @Transactional
 public ResponseEntity deleteChair (@PathVariable Long id){
     var chair = repository.findById(id);

@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import ALURAPROJECT.demo.domain.reservas.BookkingService;
 import ALURAPROJECT.demo.domain.reservas.ListagemReservaDto;
 import ALURAPROJECT.demo.domain.reservas.UpdateReservaDto;
 
@@ -46,27 +47,15 @@ private RepositoryChair repositoryChair;
 @Autowired
 private RepositoryUser repositoryUser;
 
+@Autowired
+BookkingService bookkingService;
 
 @PostMapping
 @Transactional
 public ResponseEntity PostBooking(@RequestBody @Valid CreateBookingDto dados) {
-    User user = repositoryUser.findById(dados.userId())
-        .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
-
-    Mesa mesa = repositoryChair.findById(dados.chairId())
-        .orElseThrow(() -> new RuntimeException("Mesa não encontrada"));
-
-    if(mesa.getStatus() != EnumStatusMesa.DISPONIVEL){
-    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("A mesa escolhida está indisponível"); }
-
-    
-    
-    Reserva reserva = new Reserva(user,mesa,dados.data_reserva(),dados.status());
-    
-    mesa.setStatus(EnumStatusMesa.INDISPONIVEL);
-    repositoryBooking.save(reserva);
    
-    return ResponseEntity.status(HttpStatus.CREATED).body(reserva);
+    bookkingService.criarReserva(dados);
+    return ResponseEntity.status(HttpStatus.CREATED).body(dados);
 
 }
 @GetMapping
@@ -79,6 +68,7 @@ public ResponseEntity<Page<ListagemReservaDto>> listarReservas(Pageable paginaca
 @Transactional
 public ResponseEntity CancelarReserva(@PathVariable Long id) {
     try{
+        
         var reserva = repositoryBooking.findById(id)
         .orElseThrow(() -> new RuntimeException("Reserva não encontrada"));
 
