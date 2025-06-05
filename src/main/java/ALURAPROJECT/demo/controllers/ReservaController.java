@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import ALURAPROJECT.demo.domain.reservas.BookingService;
 import ALURAPROJECT.demo.domain.reservas.BookkingService;
 import ALURAPROJECT.demo.domain.reservas.ListagemReservaDto;
 import ALURAPROJECT.demo.domain.reservas.UpdateReservaDto;
@@ -48,13 +49,13 @@ private RepositoryChair repositoryChair;
 private RepositoryUser repositoryUser;
 
 @Autowired
-BookkingService bookkingService;
+BookingService bookingService;
 
 @PostMapping
 @Transactional
 public ResponseEntity PostBooking(@RequestBody @Valid CreateBookingDto dados) {
    
-    bookkingService.criarReserva(dados);
+    bookingService.criarReserva(dados);
     return ResponseEntity.status(HttpStatus.CREATED).body(dados);
 
 }
@@ -67,27 +68,9 @@ public ResponseEntity<Page<ListagemReservaDto>> listarReservas(Pageable paginaca
 @PatchMapping("/{id}")
 @Transactional
 public ResponseEntity CancelarReserva(@PathVariable Long id) {
-    try{
-        
-        var reserva = repositoryBooking.findById(id)
-        .orElseThrow(() -> new RuntimeException("Reserva não encontrada"));
+  bookingService.atualizarReserva(id);
 
-        if(reserva.getStatus()==EnumBooking.ATIVO){
-            reserva.setStatus(EnumBooking.CANCELADO);
-        
-            var mesa = reserva.getMesa();
-            mesa.setStatus(EnumStatusMesa.DISPONIVEL);
-        
-            repositoryChair.save(mesa);
-            repositoryBooking.save(reserva);
-            return ResponseEntity.ok().build();}
-            else{
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Reserva não está ativa e não pode ser cancelada");
-            }
-
-        }catch(Exception e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Reserva não encontrada");
-        }
+  return ResponseEntity.ok().build();
     }
 
  }
