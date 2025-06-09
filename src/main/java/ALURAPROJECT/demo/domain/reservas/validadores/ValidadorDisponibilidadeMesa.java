@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import ALURAPROJECT.demo.domain.mesas.RepositoryChair;
-import ALURAPROJECT.demo.domain.reservas.CreateBookingDto;
+import ALURAPROJECT.demo.domain.reservas.Dto.CreateBookingDto;
 
 @Component
 public class ValidadorDisponibilidadeMesa implements Validador {

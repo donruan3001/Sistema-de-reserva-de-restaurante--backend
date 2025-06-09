@@ -49,7 +49,7 @@ public void atualizarReserva(Long id){
 
  var reserva = repositoryBooking.findById(id).get();
 
- if (repositoryBooking.existsById(id)){throw new RuntimeErrorException(null, "id da reserva não existe");}
+ if (!repositoryBooking.existsById(id)){throw new RuntimeErrorException(null, "id da reserva não existe");}
 
 
     if(reserva.getStatus()== EnumBooking.ATIVO) {

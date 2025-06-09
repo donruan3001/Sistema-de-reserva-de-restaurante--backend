@@ -1,4 +1,7 @@
-package ALURAPROJECT.demo.domain.mesas;
+package ALURAPROJECT.demo.domain.mesas.Dto;
+
+import ALURAPROJECT.demo.domain.mesas.EnumStatusMesa;
+import ALURAPROJECT.demo.domain.mesas.Mesa;
 
 public record ListagemChairDto(Long id,String nome,int capacidade,EnumStatusMesa status) {
 

@@ -1,7 +1,8 @@
-package ALURAPROJECT.demo.domain.reservas;
+package ALURAPROJECT.demo.domain.reservas.Dto;
 
 import java.time.LocalDateTime;
 
+import ALURAPROJECT.demo.domain.reservas.EnumBooking;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotNull;
 

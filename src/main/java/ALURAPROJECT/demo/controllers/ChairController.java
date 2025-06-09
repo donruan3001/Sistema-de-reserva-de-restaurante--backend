@@ -16,16 +16,19 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
-import ALURAPROJECT.demo.domain.mesas.InserirChairDto;
-import ALURAPROJECT.demo.domain.mesas.ListagemChairDto;
+import ALURAPROJECT.demo.domain.mesas.Dto.InserirChairDto;
+import ALURAPROJECT.demo.domain.mesas.Dto.ListagemChairDto;
 import ALURAPROJECT.demo.domain.mesas.Mesa;
 import ALURAPROJECT.demo.domain.mesas.RepositoryChair;
-import ALURAPROJECT.demo.domain.mesas.UpdateChairDto;
+import ALURAPROJECT.demo.domain.mesas.Dto.UpdateChairDto;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 
 @RestController
 
 @RequestMapping("/mesas")
+@SecurityRequirement(name = "bearer-key")
 public class ChairController {
 @Autowired
 private  RepositoryChair repository;

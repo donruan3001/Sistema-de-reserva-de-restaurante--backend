@@ -15,6 +15,8 @@ import ALURAPROJECT.demo.domain.reservas.RepositoryBooking;
 import ALURAPROJECT.demo.domain.reservas.Dto.CreateBookingDto;
 import ALURAPROJECT.demo.domain.reservas.Dto.ListagemReservaDto;
 import ALURAPROJECT.demo.domain.reservas.services.BookingService;
+
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.PatchMapping;
 
 @RestController
 @RequestMapping("booking")
+@SecurityRequirement(name = "bearer-key")
 public class ReservaController {
 
 @Autowired
