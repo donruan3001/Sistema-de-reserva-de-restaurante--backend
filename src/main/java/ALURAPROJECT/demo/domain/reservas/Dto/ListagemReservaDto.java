@@ -1,9 +1,7 @@
-package ALURAPROJECT.demo.domain.reservas;
+package ALURAPROJECT.demo.domain.reservas.Dto;
 
 import java.time.LocalDateTime;
 
-import ALURAPROJECT.demo.domain.User.User;
-import ALURAPROJECT.demo.domain.mesas.Mesa;
 
 public record ListagemReservaDto(
     Long id,

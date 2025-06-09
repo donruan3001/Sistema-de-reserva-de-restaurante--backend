@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import ALURAPROJECT.demo.domain.User.UserLoginDto;
-import ALURAPROJECT.demo.domain.User.UserRegisterDto;
+import ALURAPROJECT.demo.domain.User.Dto.UserLoginDto;
+import ALURAPROJECT.demo.domain.User.Dto.UserRegisterDto;
 import ALURAPROJECT.demo.domain.User.RepositoryUser;
 import ALURAPROJECT.demo.domain.User.User;
 import ALURAPROJECT.demo.infra.security.TokenJWT;

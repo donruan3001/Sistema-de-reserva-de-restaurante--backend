@@ -1,12 +1,18 @@
-package ALURAPROJECT.demo.domain.reservas;
+package ALURAPROJECT.demo.domain.reservas.services;
+
+import java.util.List;
 
 import javax.management.RuntimeErrorException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import ALURAPROJECT.demo.domain.User.RepositoryUser;
 import ALURAPROJECT.demo.domain.mesas.EnumStatusMesa;
 import ALURAPROJECT.demo.domain.mesas.RepositoryChair;
+import ALURAPROJECT.demo.domain.reservas.EnumBooking;
+import ALURAPROJECT.demo.domain.reservas.RepositoryBooking;
+import ALURAPROJECT.demo.domain.reservas.Reserva;
+import ALURAPROJECT.demo.domain.reservas.Dto.CreateBookingDto;
+import ALURAPROJECT.demo.domain.reservas.validadores.Validador;
 
 @Service
 public class BookingService {
@@ -20,14 +26,12 @@ RepositoryChair repositoryChair;
 @Autowired
 RepositoryUser repositoryUser;
 
-public void criarReserva(CreateBookingDto dados){
+@Autowired
+private List<Validador> validadores;
 
-  if (!repositoryChair.existsById(dados.chairId())) {
-        throw new RuntimeErrorException(null, "id da mesa não existe");
-    }
-    if (!repositoryUser.existsById(dados.userId())) {
-        throw new RuntimeErrorException(null, "id do user não existe");
-    }
+public void criarReserva(CreateBookingDto dados){
+ 
+    validadores.forEach(v -> v.validar(dados)); 
 
     var mesa = repositoryChair.findById(dados.chairId()).get();
     var user = repositoryUser.findById(dados.userId()).get();
