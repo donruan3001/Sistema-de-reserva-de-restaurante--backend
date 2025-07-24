@@ -3,7 +3,7 @@ version: '3.8'
 services:
   postgres:
     image: postgres:latest
-    container_name: sistema-reserva-db
+    container_name: postgres_db
     environment:
       POSTGRES_DB: sistema-de-reserva
       POSTGRES_USER: postgres
